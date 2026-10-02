@@ -1,0 +1,24 @@
+# Local environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Datasets, checkpoints, and weights stay out of git.
+# Keep large downloads on D: (see 00-foundations/01-this-machine).
+data/
+checkpoints/
+outputs/
+wandb/
+runs/
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+*.gguf
+
+# Secrets
+.env

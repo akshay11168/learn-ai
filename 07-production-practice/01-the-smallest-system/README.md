@@ -1,0 +1,44 @@
+# 01 — The smallest system
+
+Prerequisite: one finished project in [path 04](../../04-small-use-cases/README.md). If you are deciding for an agent, also finish [path 03 lab 03](../../03-build-agents/03-tools/README.md).
+
+## Purpose
+
+Consultants get hired to pick a method, not to use the newest one. This lab is the decision record you will reuse in every proposal: the smallest system that can hit the metric, and the methods you rejected with a reason.
+
+## Explain before you code
+
+1. A task has a fixed form, a few dozen patterns, and a high cost when it is wrong. Which method do you reach for first, and what would justify a model later?
+2. Retrieval answers from documents you provide. Fine-tuning changes weights. Which one do you want when the facts change every week?
+3. An agent is a loop that can take actions. What extra failure appears the moment the system can call a tool, compared with a single prediction?
+
+## The ladder
+
+Use this order. Stop at the first rung that meets the metric on your validation set. Write down why you did not stop earlier, and why you did not climb higher.
+
+| Rung | What it is | When it is enough |
+|---|---|---|
+| Rules | Keywords, thresholds, regular expressions, a checklist a person follows | The patterns are stable and you can list them |
+| Classic model | Linear or tree model on features you define, including the baselines from path 01 and path 06 | Features are known, data is tabular or counts, you need a probability and a reason |
+| One prompt | A fixed instruction to a model you do not train | The task is fuzzy, the volume is low, and you can check the outputs |
+| Retrieval | Search your documents, then answer from the passages | The knowledge lives in files and changes |
+| Fine-tune or adapter | Update weights on your pairs | Format or skill is stable, and prompting plus retrieval miss a measured bar |
+| Agent | A loop with tools | The task needs several actions, and a single call cannot see the tool result |
+
+Climbing the ladder adds cost, latency, and ways to be wrong. A fine-tune that loses to a keyword rule on your set is a failed decision even if the training curve looked healthy.
+
+## Build
+
+Pick the use case you will take through the rest of path 07. In `notes.md` write a one-page decision:
+
+- The user, the input, the output, and the mistake that matters most.
+- The metric and the minimum score you would ship (you may revise the number in lab 06, but write a draft now).
+- The rung you stopped on, with the validation number.
+- One sentence each for the rungs you skipped.
+- What would force you up a rung later (volume, a new language, a measured miss).
+
+If your existing project skipped a rung, run the simpler baseline now and put both numbers in the experiment log. You are allowed to keep the heavier system only when it wins on the metric you named.
+
+## You are done when
+
+You can defend the choice in five minutes without saying "AI" until you have said what the system must not get wrong.
