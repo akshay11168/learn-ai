@@ -39,6 +39,35 @@ Pick the use case you will take through the rest of path 07. In `notes.md` write
 
 If your existing project skipped a rung, run the simpler baseline now and put both numbers in the experiment log. You are allowed to keep the heavier system only when it wins on the metric you named.
 
+## Study this step
+
+**Concepts to master**
+
+- The ladder: rules, classic model, one prompt, retrieval, fine-tune, agent. Climb only when the rung below misses a metric you wrote down first.
+- Cost of a miss decides the rung as much as accuracy does. A rare, expensive miss argues for a rule or a human, not for a larger model.
+- Facts that change live in documents or tables, not in weights. That is the retrieval-versus-fine-tune cut.
+- An agent adds action risk. A single prediction cannot delete a file. A tool-using loop can, if you let it.
+
+**Study**
+
+- Google, "Rules of Machine Learning": https://developers.google.com/machine-learning/guides/rules-of-ml — rules about starting without ML, and about keeping a heuristic beside the model.
+- Eugene Yan, "Patterns for Building LLM-based Systems": https://eugeneyan.com/writing/llm-patterns/ — read the patterns that match the ladder. Skip product theater.
+- Applied LLMs essay, the sections on choosing where the model sits in the system: https://applied-llms.org/ — read part 1. Take the architectural choices, not the vendor names.
+
+**Practice**
+
+- For your use case, write one paragraph per rung you reject. Include a number for the rung you keep and the rung below it.
+- Invent a second task, "route invoices to three folders by vendor name printed in a fixed box." Decide the rung in writing before you think about a model.
+- Say the five-minute defense aloud once. If you say "AI" before you say the failure that matters, start over.
+
+**Practice questions**
+
+1. The format never changes and you have 40 labeled rows. Why is a fine-tune a suspicious first choice?
+2. The policy PDF changes every Monday. Why is a fine-tune the wrong place to store it?
+3. A keyword rule scores 0.92 and the model scores 0.93, and a mistake emails the wrong customer. Which do you ship, and what else must be true?
+4. What new failure appears when you go from a classifier to an agent with a `send_email` tool?
+5. Write the metric and the minimum score for your chosen use case in one sentence a non-specialist can check.
+
 ## You are done when
 
 You can defend the choice in five minutes without saying "AI" until you have said what the system must not get wrong.

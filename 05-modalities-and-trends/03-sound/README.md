@@ -21,6 +21,35 @@ The short-sound classifier is the required experiment. In this folder, write the
 3. The new-room or new-take test result copied from the use case, plus a sentence on what leaked if you had split slices of one recording at random.
 4. Optional: run Whisper tiny on five clips of you speaking a sentence, and note errors. This is inference, not training. It places the speech-to-text family on your map with a personal example.
 
+## Study this step
+
+**Concepts to master**
+
+- Sample rate times duration is the number of waveform samples. A spectrogram trades that long axis for a frequency axis times a shorter time axis.
+- Mel bins are spaced for perception, not for a linear Hertz scale. You use them because speech and everyday sound concentrate information that way, and because the tensor becomes image-like.
+- Whisper-style models map audio features to text tokens. They are sequence models with a large paired corpus. Your classifier maps a spectrogram to a class id. Do not confuse the two tasks.
+- Leakage in audio is shared room, shared take, and shared background. The split rule is the concept that makes the score real.
+
+**Study**
+
+- torchaudio feature extraction tutorial: https://pytorch.org/audio/stable/tutorials/audio_feature_extractions_tutorial.html
+- The Whisper paper, abstract and the approach figure: https://arxiv.org/abs/2212.04356 — extract the input representation and the output tokens. Note the model sizes and which ones you would attempt on 6 GB (tiny, small) and which you would not (large).
+- Path 04 lab 04's notes once they exist. This lab is the write-up of the representation. That lab is the model.
+
+**Practice**
+
+- From one wav, write down sample rate, number of samples, spectrogram shape, and the convnet's first-layer input shape.
+- Run Whisper tiny on five sentences if you do the optional inference. Mark insertions and substitutions. That error list is you seeing a speech model as a sequence model, not as a magic ear.
+- Sketch the leak: one 10-second take sliced into 10 overlapping windows, randomly split.
+
+**Practice questions**
+
+1. 16,000 samples per second for 2 seconds is how many numbers in the waveform?
+2. Why can the same convnet code classify spectrograms and CIFAR images?
+3. A random split of windows from one recording scores 99%. What feature other than the spoken word could explain it?
+4. Whisper large does not fit your plan. Which resource is the limit?
+5. Your classifier outputs a class. Whisper outputs text. What eval changes because the output changed?
+
 ## You are done when
 
 You can explain the path from wav file to class id, including the spectrogram shape, and you know the split rule that makes the score believable.

@@ -18,12 +18,18 @@ Every project in this course is sized so it can run here, plugged in, with other
 
 ## How a lab works
 
+Each lab has a section called **Study this step**. That is the in-depth pass. Do it before you treat the lab as finished.
+
 1. Read the lab once before writing code.
-2. In that folder, create `notes.md` and answer the "explain before you code" questions in your own words.
-3. Implement the smallest version that can run.
-4. Record the numbers the run printed (loss, accuracy, a few examples).
-5. Change one thing. Predict the effect, then run it, then write whether you were right.
-6. Leave the lab when you can answer "you are done when" without looking at the notes.
+2. Master the concept list. If a term is only familiar, it is not mastered.
+3. Study the named pages, not a pile of search results. Read them with a pen. Write the derivation or the diagram in `notes.md`.
+4. Answer the "explain before you code" questions and the practice questions in `notes.md`, closed-book, with the arithmetic shown. Check the ones that have a numeric answer by computing them again the next day.
+5. Do the short drills, then implement the lab's build.
+6. Record the numbers the run printed (loss, accuracy, a few examples).
+7. Change one thing. Predict the effect, then run it, then write whether you were right.
+8. Leave the lab when you can answer "you are done when" and at least four practice questions without looking at the notes.
+
+Sources are chosen because they are stable and teach the mechanism. Prefer the official tutorial, the free book chapter, or the essay named in the lab over a summary of that essay. When a lab names a video, watch the part it names and then reproduce the result on paper. A video you cannot reconstruct was entertainment.
 
 Code, notes, and plots for a lab live in that lab's folder. Datasets and weights live on `D:` and are gitignored.
 

@@ -45,6 +45,37 @@ Greedy decoding is deterministic across two runs. The token printout shows that 
 
 Run the same prompt through your path 01 tiny transformer and through this model. The point of the comparison is scale and data, which you already estimated in the capstone. Write three concrete differences in the outputs (syntax, stopping, following the question).
 
+## Study this step
+
+**Concepts to master**
+
+- A pretrained checkpoint is a stack of tensors plus a config. Code rebuilds the modules from the config and fills the tensors. The tokenizer is a separate artifact and must match the checkpoint.
+- Special tokens mark boundaries: beginning, end, padding, and often a chat turn. The chat template is a function that inserts those tokens. Skipping it means you are not running the model the way it was tuned.
+- Generation is a loop: forward, choose a token, append, forward. Greedy is argmax. Sampling draws from the softmax of logits divided by temperature. `do_sample=False` is the reproducible setting.
+- Context length is a hard window. Tokens beyond it are not "remembered worse". They are absent, unless the software truncates with a policy you should print.
+- The model card's license and training-data statement constrain what you may ship later. "Open weights" is not one license.
+
+**Study**
+
+- Hugging Face NLP course, chapter 2 (using transformers) and the tokenizer chapter: https://huggingface.co/learn/nlp-course/chapter2/1 and https://huggingface.co/learn/nlp-course/chapter6/1 — run their pipeline example, then remove the pipeline and call the tokenizer and model yourself so you see the ids.
+- Jay Alammar, "The Illustrated GPT-2": https://jalammar.github.io/illustrated-gpt2/ — the section on picking the next token. Your generator is that picture.
+- The model card of the exact checkpoint you load. Read every heading. Copy parameter count, context length, and license into `notes.md` with the date.
+
+**Practice**
+
+- Encode one sentence, print tokens with `convert_ids_to_tokens`, change one word, and see which ids moved.
+- Generate twice with `do_sample=False` and twice with temperature `0.8` and a fixed seed if the API allows. Record which pair matched.
+- Feed a prompt longer than the context and print what the tokenizer or the model call actually kept.
+
+**Practice questions**
+
+1. Two tokenizers split "binary search" differently. Why can you not swap tokenizers between checkpoints?
+2. The chat template adds a role token your manual string omitted. What behavior are you no longer testing?
+3. Greedy decoding returned two different strings. What did you fail to fix: temperature, dropout in train mode, or a random seed in the sampler?
+4. A card says context 2048. Your prompt is 3000 tokens. What does the model condition on?
+5. Parameter count is 1.5B and you load in float16. About how many bytes are the weights, and why is that not the training cost?
+6. The license forbids using the model to train a competing model, or requires attribution. Where in your later capstone notes does that constraint have to appear?
+
 ## You are done when
 
 You can take a new model id, load it, and explain its prompt format from the card and a single encoded example.

@@ -19,6 +19,35 @@ Do one of the following and write it up with a baseline.
 
 Also write one paragraph that places convnets, vision transformers, and diffusion on the map, in your own words, tied to what you have run.
 
+## Study this step
+
+**Concepts to master**
+
+- Convnets impose local filters and weight sharing. Vision transformers cut the image into patches and run the same attention you implemented, plus position information.
+- A detection box is a regression (where) plus a classification (what), with a matching rule between predicted and true boxes. IoU is that overlap measure.
+- Diffusion trains a denoiser. Sampling starts from noise and applies the denoiser repeatedly, conditioned on a text encoding. It is not "the model remembers the photo."
+- LoRA on a diffusion model is the same low-rank idea as in language: freeze the base, train a small update. SD 1.5 fits this GPU. A large SDXL full fine-tune does not.
+
+**Study**
+
+- CS231n detection notes, the section that defines IoU and non-max suppression, skimming the architecture zoo: https://cs231n.github.io/detection/
+- The Latent Diffusion / Stable Diffusion paper, Figure 1 and the abstract: https://arxiv.org/abs/2112.10752 — be able to point at "where the image is compressed" and "where the text enters."
+- Jay Alammar, "The Illustrated Stable Diffusion": https://jalammar.github.io/illustrated-stable-diffusion/ — read it after the paper figure, not instead of a checklist for your own samples.
+
+**Practice**
+
+- Compute IoU by hand for two boxes that overlap on half their area, and for two that do not overlap.
+- If you train a LoRA, write the checklist before you generate. Score 10 images against it. Keep the failures in the notes.
+- State which of classification, detection, and generation you have actually run, and which you have only read.
+
+**Practice questions**
+
+1. Why does a vision transformer need position embeddings on patches, given what you know about attention?
+2. Two boxes overlap in a thin strip. Is IoU high or low, and why is that the right behavior for "same object"?
+3. A diffusion LoRA memorizes 15 training photos and cannot place the object in a new room. Is that a successful style adapter or an overfit one, and which checklist item fails?
+4. This GPU's 6 GB budget: which of ResNet-18 fine-tune, YOLOv8 nano, SD 1.5 LoRA, and SDXL full fine-tune do you plan to run, and which do you not?
+5. Why is a pretty generated image not a metric?
+
 ## You are done when
 
 The experiment's checklist or metric is in `notes.md`, and you can say which image jobs this 6 GB GPU is suited to.

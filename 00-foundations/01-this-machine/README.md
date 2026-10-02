@@ -56,6 +56,35 @@ nvidia-smi
 
 Confirm the GPU name and that free memory is near 6 GB. If a game or browser is holding a large slice, write that down too. Training budgets assume a mostly idle GPU.
 
+## Study this step
+
+**Concepts to master**
+
+- VRAM holds the tensors of the current step: weights, gradients, optimizer state, and activations. System RAM holds the Python process, the data loader, and copies you have not moved to the GPU.
+- A weight file's size is not the training memory. Optimizer state is several times the weights.
+- Disk, RAM, and VRAM fail differently. A crash that names CUDA out-of-memory is VRAM. A crash that freezes the whole machine is usually system RAM. A download that stops because the drive is full is disk.
+- Laptop GPUs share a power and heat budget with the CPU. Clocks drop on battery and when the chip is hot, so timings are only comparable when the machine is plugged in.
+
+**Study**
+
+- NVIDIA's own `nvidia-smi` manual page, the sections on memory usage and GPU utilization: https://developer.nvidia.com/nvidia-smi — run each flag you don't know and write what it printed.
+- PyTorch's note "CUDA semantics", the part on memory: https://pytorch.org/docs/stable/notes/cuda.html — read "Memory management" only. You want the idea that caching allocator reserved memory is not the same as allocated memory.
+- Tim Dettmers' "Which GPU for deep learning?" (timdettmers.com) — read the sections on memory bandwidth and why VRAM capacity dominates hobby training. Ignore the shopping list. Extract the rule that capacity, not the logo, decides which model fits.
+
+**Practice**
+
+- Fill a three-row table from a live `nvidia-smi`: total VRAM, used, free. Repeat with a browser open and with it closed.
+- Write the path you will use for `HF_HOME` and for datasets. Create the directories.
+- For an imaginary 100 MB weight file, state which resource is fine and which you have not measured yet (optimizer state).
+
+**Practice questions**
+
+1. A checkpoint is 2 GB on disk. Why can training still fail on a 6 GB GPU?
+2. Training is slow, `nvidia-smi` shows 0% GPU utilization, and the Python process is busy. Which resource is the bottleneck, and what is it probably doing?
+3. You have 16 GB of system RAM and Windows is using 6 GB. A data pipeline wants to pin 12 GB of batches. What fails?
+4. Why is "the GPU has 6 GB, so I can train a 6 GB model" a wrong sentence?
+5. Name one lab later in this course that is limited by VRAM, one limited by system RAM, and one that is fine on the CPU. Justify each in a clause.
+
 ## You are done when
 
 You can point at 6 GB, 16 GB, and drive D: and say which resource a given lab is about to run out of.

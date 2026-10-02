@@ -31,6 +31,37 @@ On code, a test suite is a preference oracle that does not require a human: a co
 
 You can draw the pipeline "sample, rank, update, stay close to the reference" and point at which box your experiment filled. The before/after numbers are in the experiment log.
 
+## Study this step
+
+**Concepts to master**
+
+- Instruction tuning teaches a format by imitating prompt-response pairs. Preference tuning teaches a ranking between two finished responses.
+- A reward model is a learned scalar judge. RLHF optimizes the policy against that judge while a penalty keeps the policy near the reference model.
+- DPO writes a classification loss on the pair so the policy's relative probability of the preferred answer rises, with the frozen reference in the formula. You should be able to say what each of the two models is doing even if you have not derived the loss.
+- On code, tests are a preference oracle: pass is preferred to fail. Style is not, unless you decided it was and wrote that down.
+- A small model can copy the length or the tone of a preferred answer without becoming more correct. Your before/after pass rate is what catches that.
+
+**Study**
+
+- Lilian Weng, "Learning from human feedback", the RLHF overview: https://lilianweng.github.io/posts/2022-02-20-rlhf/ — read the pipeline diagram until you can redraw it from memory: SFT, reward model, policy optimization.
+- The DPO paper, abstract and Figure 1: https://arxiv.org/abs/2305.18290 — write one sentence on what DPO removes (the explicit reward model and the RL loop) and one sentence on what it keeps (a reference policy).
+- Hugging Face course chapter or blog on RLHF if the course currently includes it, plus the TRL DPO trainer doc you would call: https://huggingface.co/docs/trl/dpo_trainer — read the arguments `beta`, `max_length`, and the expected dataset columns. You are mapping concepts to fields, not memorizing a framework.
+
+**Practice**
+
+- On one prompt, compute the length in tokens of the preferred and rejected completions. If the preferred ones are systematically longer, write that confound down before you train.
+- After the update, print the log probability of one preferred string and one rejected string if you can do so cheaply, or rerun tests if you cannot. The tests are the result that matters.
+- One pair where both solutions fail tests must be excluded. Count exclusions.
+
+**Practice questions**
+
+1. Why is "always prefer the longer answer" a reward hack a human labeler can teach by accident?
+2. In DPO, what is the reference model a brake on?
+3. Tests mark A better than B, and after training the model emits answers that look like A and still fail. Which objective did you increase, and which did you not measure until eval?
+4. You use the same 20 problems to build preference pairs and to report the final pass rate. What is wrong with the report?
+5. Instruction tuning data is `(problem, solution)`. Preference data is `(problem, better, worse)`. Which one can punish a fluent wrong answer that SFT would have imitated?
+6. Beta in the DPO loss is described as controlling how far the policy may move from the reference. If your tiny run's outputs become gibberish, which way do you move beta, and what do you reread before you touch it?
+
 ## You are done when
 
 You can say what preference data measures in the code setting (tests) and what it would measure in a chat setting (a person's ranking), and you have one run that moved probabilities in the direction the pair specified.

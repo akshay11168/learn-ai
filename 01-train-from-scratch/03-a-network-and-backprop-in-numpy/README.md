@@ -60,6 +60,37 @@ The gradient check passes on random weights before you train. XOR validation acc
 
 Add a second hidden layer of 8 units and extend the backward pass. The new block is the same pattern: upstream gradient, multiply by the local ReLU mask, then an outer product to get `dW`. If this still feels mechanical, the lab has done its job.
 
+## Study this step
+
+**Concepts to master**
+
+- A computation graph: each node has a local derivative with respect to its inputs. Backprop multiplies those local derivatives by the upstream gradient.
+- Shapes in the backward pass are the transpose of the forward story. If forward is `h @ W2`, the gradient `dW2` is an outer product of `h` and the upstream gradient, and the gradient sent back to `h` is the upstream gradient times `W2.T`.
+- ReLU's derivative is the mask `h_pre > 0`. A unit that is always off on your batch receives a zero gradient. That is a dead unit.
+- Initialization matters because symmetry plus identical inputs keeps identical units identical. Zeros are a bad initialization for ReLU layers.
+- A numerical check is the definition of the derivative. When it disagrees with your code, your code is wrong, including when training loss still decreases.
+
+**Study**
+
+- Nielsen, chapter 2, all of it: http://neuralnetworksanddeeplearning.com/chap2.html — this is the main text for the lab. Do the math in his notation, then translate every equation into your shapes.
+- Karpathy, "The spelled-out intro to neural networks and backpropagation" (the micrograd lecture): https://www.youtube.com/watch?v=VMj-3S1tku0 — watch through the scalar backward pass. Then read `micrograd`'s `backward` in https://github.com/karpathy/micrograd and write what `self.grad +=` is accumulating.
+- CS231n, "Backpropagation, intuitions": https://cs231n.github.io/optimization-2/ — study the patterns for add, multiply, and max. Those three cover your graph.
+
+**Practice**
+
+- Scalar network: `h = relu(x * w1)`, `y_hat = h * w2`, loss `(y_hat - y)^2`. Pick `x = 2`, `w1 = 0.5`, `w2 = -1`, `y = 1`. Forward and backward by hand. Then nudge `w1`.
+- Implement the lab's backward pass and immediately run the numerical check before any training loop. Save the first bug you find.
+- Initialize ten ReLU units with the same weight vector and one batch of identical rows. Print the hidden activations after a few steps.
+
+**Practice questions**
+
+1. Forward: `h_pre = -2`, ReLU, then a later layer. What is `dL/dh_pre` if the upstream `dL/dh` is `4`?
+2. `h` is `(32, 8)`, `dz_out` is `(32, 1)`, `W2` is `(8, 1)`. Give the shapes of `dW2`, `db2`, and `dh`.
+3. Why does checking only that the loss went down fail to prove the backward pass is correct?
+4. All hidden activations are zero after initialization. What do you change, and why is "train longer" the wrong first move?
+5. You replace ReLU with `tanh`, whose derivative is `1 - tanh(z)^2`. Write the one line in the backward pass that changes.
+6. XOR is not linearly separable. After training, pick one hidden unit and say what input direction makes it positive. If you cannot, the hidden layer is unused and the check is incomplete.
+
 ## You are done when
 
 You can compute the backward pass for a new activation whose derivative you just looked up, and the numerical check passes on the first or second try.

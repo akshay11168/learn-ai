@@ -35,6 +35,36 @@ In this folder, for the use case you chose:
 3. `inventory.md`: source, counts, split rule, permission, location on `D:`, and what you redacted.
 4. A one-line change to the split if the disagreement review or the leakage rule says the old split was flattering. Retrain only if the decision lab's metric would move. Log it.
 
+## Study this step
+
+**Concepts to master**
+
+- The labeling guide is the definition of the target. The model learns the guide, including its contradictions.
+- Agreement on a double-labeled sample is the ceiling. You do not need a heavy statistic on day one. You need the list of disagreements.
+- An inventory is source, date, count, permission, personal data, and location. A folder without that note is not a dataset you can defend.
+- Split by the unit that will be new in production: time, person, session, or document.
+- Redaction happens before the row enters training, logs, or git.
+
+**Study**
+
+- Google's "Data cascades in high-stakes AI" abstract and introduction (Sambasivan et al.): https://research.google/pubs/everyone-wants-to-do-the-model-work-not-the-data-work-data-cascades-in-high-stakes-ai/ — the claim to take: data work is the work. Read the public article version if the PDF is awkward.
+- Snorkel or scikit-learn has no monopoly here. Read one labeling-guide example you respect from a dataset card (TACO's fields, or a Kaggle competition's rules page) and notice the borderline cases.
+- Your country's basic idea of personal data, from the regulator's own "what is personal data" page (for example the EU GDPR definition page, or India's DPDP explainer from the official ministry site). Read the definition only. This is not a compliance opinion.
+
+**Practice**
+
+- Double-label 30 rows. Do not "fix" the guide mid-pass. Fix it after, and write what changed.
+- Write the inventory before you add new files, then update it when you add them.
+- Search your training folder for an email-like string and a phone-like string. Record what you would redact.
+
+**Practice questions**
+
+1. Two labelers disagree on 12 of 30 rows. What number is a fantasy for model accuracy, and what do you edit first?
+2. Why is a random split of messages from the same customer a leak?
+3. You fit a tokenizer's vocabulary on all rows including test. Is that leakage? Argue it.
+4. A client's spreadsheet is in Downloads and in the repo "just for the demo." How many copies do you now have to track for deletion?
+5. What three fields must the inventory have before you would show it to a client?
+
 ## You are done when
 
 You can hand the labeling guide to another person and predict the rows they will argue about, because you already listed them.

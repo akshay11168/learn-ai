@@ -41,6 +41,36 @@ For each operation in `arrays.py`, the comment's predicted shape matches the pri
 
 Replace NumPy with `torch` tensors on CPU for the same multiply. Confirm `@` agrees. Move the tensors to `cuda` and confirm again. Write down that the math did not change when the device changed.
 
+## Study this step
+
+**Concepts to master**
+
+- Rank, shape, and axis. Axis 0 is the first dimension. For a batch of vectors written as rows, axis 0 is the batch.
+- `A @ B` is legal when A's last dimension equals B's second-to-last, except for the 1-D cases NumPy documents. The inner dimensions disappear into the dot product.
+- Broadcasting aligns shapes from the right. A size-1 axis stretches. A missing axis is treated as 1. Mismatched sizes other than 1 are an error.
+- Views versus copies. A slice is often a view: writing into it writes into the original. `reshape` sometimes copies and sometimes does not. When you are unsure, call `.copy()`.
+- Reduction: `mean(axis=0)` collapses axis 0 and leaves the other axes.
+
+**Study**
+
+- NumPy "Broadcasting": https://numpy.org/doc/stable/user/basics.broadcasting.html — work every example on paper, including the ones that fail.
+- NumPy "Indexing on ndarrays", basic slicing only: https://numpy.org/doc/stable/user/basics.indexing.html — stop before fancy indexing. Redo the row, column, and `1:3` examples in a file.
+- PyTorch "Tensor views" in the tensor tutorial, the reshape and broadcast pages: https://pytorch.org/docs/stable/notes/broadcasting.html — compare one example with NumPy. The rules match.
+
+**Practice**
+
+- Without running code, write the result shape of: `(8, 16) @ (16, 4)`, `(8, 16) @ (8, 16)`, `(8, 16) + (16,)`, `(8, 16) + (8, 1)`, `(8, 16) + (8,)`. Then check.
+- Implement matrix multiply with three nested loops for 2×2 and compare to `@`.
+- Given `X` shaped `(32, 10)`, write the expression for "mean of each feature" and "mean of each row" and state both shapes.
+
+**Practice questions**
+
+1. `W` is `(3, 2)`, `x` is `(4, 3)`. You want `(4, 2)`. Which product, `x @ W` or `W @ x`? Why does the other fail?
+2. A bias of shape `(4,)` is added to a `(32, 4)` batch. Which axis stretches, and what number is added to every row's last column?
+3. `scores` has shape `(32, 5)`. You softmax over classes. Which axis, and what is the output shape? What should each row sum to?
+4. Why is a Python list of lists the wrong tool for a training step on a million numbers, even though the math is the same?
+5. `A.T` of a `(3, 4)` matrix has which shape? If `A` was stored as a view of a larger array, what should you check before writing into the transpose?
+
 ## You are done when
 
 Someone can give you two shapes and ask whether `A @ B` is legal, and you answer with the output shape or the reason it is illegal, without running code.

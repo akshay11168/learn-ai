@@ -37,6 +37,36 @@ Write that note for one of these, whichever you can open and read carefully:
 
 Path 06 lab 04 asks you to reproduce one idea from a paper at a small scale. That is the advanced form of this lab. This lab is the monthly version: understand the claim well enough to decide whether it belongs in your work.
 
+## Study this step
+
+**Concepts to master**
+
+- A claim has a subject (model, data, or method), a comparison, and a limitation. A launch post often has only a name.
+- The model card and the dataset card are the primary sources. Commentary is secondary.
+- VRAM arithmetic from path 01's capstone is how you decide whether "new" matters on your machine.
+- Most months the map does not change. Writing "no change" is a successful review.
+- You cannot follow everything. You follow the wedge you will consult on, plus one adjacent area.
+
+**Study**
+
+- Hugging Face model-card guidebook, the sections a card should contain: https://huggingface.co/docs/hub/model-cards — use it as the checklist while you read a real card.
+- "Troubleshooting public ML reports" habits from Karpathy's recipe, the evaluation warnings: https://karpathy.github.io/2019/04/25/recipe/
+- One dataset card end to end, TACO or the set you actually used. Cards are the genre. A blog will not substitute.
+
+**Practice**
+
+- Fill the five-sentence note from the lab instructions for a real card, with a link and a date.
+- Compute whether the thing fits in 6 GB for inference and for training. Show the arithmetic.
+- Find one sentence in a secondary blog that is stronger than the card. Strike it from your note.
+
+**Practice questions**
+
+1. A post says a model "beats GPT-4." What four facts do you need before that sentence enters your notes?
+2. The card omits training data and eval contamination. What do you write in sentence 4?
+3. Why is a month with "no map change" not a failed study session?
+4. Which source wins when a Twitter thread and a model card disagree, and why?
+5. Name the one area you will not track this year, on purpose.
+
 ## You are done when
 
 One five-sentence note exists, and you know the day of the month you will write the next one.

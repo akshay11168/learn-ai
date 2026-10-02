@@ -88,6 +88,35 @@ Open a new terminal so those values load. Hugging Face is not installed yet. Pat
 
 Read one page of the PyTorch notes on CUDA availability. Write down what `torch.backends.cudnn.version()` printing a number tells you, and what a CPU-only wheel would have printed instead in `check_gpu.py`.
 
+## Study this step
+
+**Concepts to master**
+
+- A virtual environment is an isolated set of packages and a Python binary. Activating it changes which `python` and `pip` run.
+- The NVIDIA driver is installed on Windows and exposes a CUDA version. The PyTorch wheel ships the CUDA libraries it was built against. Those two must be compatible. A CPU-only wheel imports, runs, and never uses the 3060.
+- `tensor.device` tells you where the numbers live. An operation between a CPU tensor and a CUDA tensor fails until you move one of them.
+- Reproducibility starts with writing down `torch.__version__` and the driver version from `nvidia-smi`.
+
+**Study**
+
+- Python's venv documentation, "Creating virtual environments": https://docs.python.org/3/library/venv.html — read it until you can say what `pyvenv.cfg` is for.
+- The install selector on https://pytorch.org/get-started/locally/ — read the command you actually run, and the sentence about CUDA. Confirm the wheel you installed is the CUDA build (`torch.version.cuda` is not `None`).
+- PyTorch tutorial "Tensor attributes" in the tensor tutorial: https://pytorch.org/tutorials/beginner/basics/tensorqs_tutorial.html — do the device section in a scratch file, then delete it and redo it from memory.
+
+**Practice**
+
+- Break the setup on purpose once: `pip install torch` without the CUDA index into a throwaway venv, run `check_gpu.py`, and record the CPU-only symptom. Delete that venv.
+- Print `torch.version.cuda`, `torch.cuda.get_device_name(0)`, and one tensor's `.device` after `.to("cuda")`.
+- Deactivate the venv, run `python -c "import torch"`, and record which interpreter answered. Activate again and repeat.
+
+**Practice questions**
+
+1. `torch.cuda.is_available()` is false after a successful `pip install torch`. Give two different causes and the check that distinguishes them.
+2. Why can `nvidia-smi` show the GPU while PyTorch still runs on CPU?
+3. What does activating a venv change, and what does it leave alone (the driver, the files on D:)?
+4. A tensor created with `torch.ones(2, 3)` and a tensor created with `device="cuda"` cannot be added. What is the fix, and which tensor moves?
+5. Write, from memory, the three lines that prove a tensor sum ran on the GPU.
+
 ## You are done when
 
 You can delete `check_gpu.py`, rewrite it from memory, and get the same three facts: version, device name, a tensor that lives on `cuda`.

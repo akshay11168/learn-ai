@@ -28,6 +28,35 @@ Pick one. Do not pick "train the model in the paper." That is a different budget
 4. Run both settings. Log both rows.
 5. Write a half-page: what matched the claim, what did not, what your setup cannot speak to (scale, data, tuning budget). If your result disagrees with the paper, the interesting question is whether the idea depends on scale. You are allowed to stop with that question clearly stated.
 
+## Study this step
+
+**Concepts to master**
+
+- A reproduction at your scale tests the idea's mechanism, not the paper's headline number.
+- One switch, everything else fixed. That is an ablation.
+- Disagreement with the paper at small scale is a clue about scale, data, or your bug. It is not a rebuttal and it is not a failure of your worth.
+- The protocol is written before the run so the result can surprise you.
+
+**Study**
+
+- The paper you chose, method section only, plus the one figure you are shrinking.
+- "Troubling trends in machine learning scholarship" (Lipton and Steinhardt), sections on speculation sold as explanation: https://arxiv.org/abs/1807.03341 — read it so you do not write a triumphant conclusion your setup cannot support.
+- Your experiment log format. Both sides of the ablation are rows before you compare them in prose.
+
+**Practice**
+
+- Write the protocol paragraph and have it sit overnight. Delete any sentence that changes two factors.
+- Run the off setting first so you know the baseline exists.
+- Write the half-page the same day as the numbers, while you still remember the bugs.
+
+**Practice questions**
+
+1. You change depth and residual connections together and the deeper residual net wins. What do you know?
+2. Why is "I reproduced the paper" a different sentence from "I saw the claimed direction on a toy setting"?
+3. The unmasked language model has lower loss. Why is that not evidence against masking?
+4. What belongs in the "this setup cannot speak to" paragraph?
+5. You tuned the learning rate on the test split of the ablation. What did you destroy?
+
 ## You are done when
 
 You can explain the paper's idea, your smaller test, and the limit of what your test shows, without inflating it into the paper's result.

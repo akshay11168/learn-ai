@@ -44,6 +44,36 @@ Read your practice SOW and add a margin note, not legal language, for each item 
 
 `clause-notes.md` with a row for each topic, written against your practice SOW: "today the draft says nothing; I need the lawyer to cover it this way." Add the third-party model license name for the model you actually use, and a sentence on what that license allows a client to do.
 
+## Study this step
+
+**Concepts to master**
+
+- An MSA holds the standing rules. An SOW holds one pilot. You need to know which document wins when they disagree.
+- Client data stays theirs. Your pre-existing harness stays yours. Newly created artifacts are whatever the contract says, so the contract must say.
+- A third-party model license is not yours to give away. The client does not become the owner of the base weights.
+- A liability cap and a no-warranty-of-accuracy clause are how a small firm survives one bad week. Only a lawyer can tell you what cannot be capped in your country.
+- Publicity and case studies require written permission. The portfolio rule from path 08 is the same rule.
+
+**Study**
+
+- The license of the base model you actually use. Read the grant and the restrictions. Write what a client may and may not do.
+- A lawyer-written public primer on master services agreements from a firm that publishes one. Treat US primers as US-specific. The concepts to recognize are indemnity, limitation of liability, and IP assignment.
+- Your practice SOW. The notes in this lab are margin notes for the lawyer, not a contract.
+
+**Practice**
+
+- Fill `clause-notes.md` with one row per topic in the lab table.
+- Find one sentence in your SOW that promises ownership of "the model" and rewrite it so the base weights, the adapter, and the harness are distinct.
+- Add the insurance question to `brief.md` without buying a policy to feel done.
+
+**Practice questions**
+
+1. Who owns the labeled client rows, and who owns your eval script, in the arrangement you want?
+2. Why is "client owns all intellectual property" dangerous if you brought a harness you reuse?
+3. The metric is 0.84 on a frozen set. What sentence must the contract not let a buyer read that number as?
+4. Why can you not assign the client ownership of a model weights file whose license forbids that?
+5. Unlimited liability in a pilot worth one month of fees can cost you what, in principle, and who tells you what your country allows you to cap?
+
 ## You are done when
 
 You can explain, without bluffing, who owns the data, who owns your harness, what the metric does not promise, and which of those sentences still need a lawyer's clause.

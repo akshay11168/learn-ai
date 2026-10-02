@@ -31,6 +31,35 @@ Write `offer.md`.
 - A name and a basic site or a single PDF are optional. They come after the offer text is stable. The PDF is the case study plus the offer, with the self-run pilot labeled honestly.
 - A simple record of leads: date, person, problem, next step, and whether you declined. A spreadsheet is enough. This is how you notice that every lead is outside the wedge.
 
+## Study this step
+
+**Concepts to master**
+
+- A repeatable offer is one pilot shape: same artifacts, same limits, a price range derived from the hour table, a client duty, and a capacity of one until you have evidence you can hold two.
+- Templates are the discovery questions, the eval script, and the handover skeleton. The problem statement and the metric are rewritten every time.
+- A lead list is a record of conversations and declines. It is not a license to spam.
+- Marketing copy cannot outrun the case studies.
+
+**Study**
+
+- McKenzie on productized services, the ramp essay: https://www.kalzumeus.com/2012/09/17/ramps-not-product/ — the offer is a ramp: a scoped pilot with a known shape.
+- Your path 08 SOW and pricing note. The offer is those, compressed, not a new promise.
+- The wedge sentence. If the offer needs a paragraph of caveats the wedge did not have, the wedge was fuzzy.
+
+**Practice**
+
+- Write the two-minute description and time it.
+- Derive the price range from the calm and messy columns. If they do not match `pricing.md`, fix one of them.
+- Make a lead sheet with columns: date, person, problem, next step, declined or not. Put one row on it, even if the row is "no conversations yet."
+
+**Practice questions**
+
+1. Why is "whatever you need done with AI" not an offer you can price?
+2. What is copied from the last pilot, and what is rewritten?
+3. Capacity is one pilot. A second buyer appears. What do you say?
+4. The website says you serve hospitals and the wedge says support tickets. Which one do you change?
+5. Where does the baseline appear in the two-minute description?
+
 ## You are done when
 
 You can describe the offer in two minutes, the price is a range you can derive, and the capacity rule says how many you will not take.

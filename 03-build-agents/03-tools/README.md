@@ -44,6 +44,38 @@ The escape-path test passes. Task 4's transcript shows a refusal from your code.
 
 Add a timeout wrapper that kills a tool after one second. Give it a dummy tool that sleeps two seconds and confirm the loop records a timeout result and continues or stops by your rule.
 
+## Study this step
+
+**Concepts to master**
+
+- A tool is a function plus a schema plus a description the model sees plus an authorization check the model does not control.
+- The registry is a dispatch table. The loop should not grow a new `if` per tool.
+- Path traversal is joining a user-controlled string to a directory and escaping it with `..` or an absolute path. The fix is to resolve the path and check that it stays inside the root.
+- `eval` and a shell are not calculators. They are code execution. An arithmetic parser accepts a grammar you wrote.
+- Errors return as tool results. They do not escape the loop, or one bad file read kills a long task with a traceback the model never sees.
+- Least privilege: the tool can do the smallest thing the task needs. A reader is not a writer.
+
+**Study**
+
+- OWASP, "Path Traversal": https://owasp.org/www-community/attacks/Path_Traversal — read the attack description and the "how to prevent" section. Map each prevention onto `read_note`.
+- Python docs for `pathlib.Path.resolve` and the warning about symlinks: https://docs.python.org/3/library/pathlib.html — write the check `root in path.parents or path == root` after resolve, and test it.
+- Lilian Weng's agent post, the "Tool use" section only: https://lilianweng.github.io/posts/2023-06-23-agent/ — compare her open-ended tool list with your four tools and say which of hers you are refusing to add yet.
+
+**Practice**
+
+- Tests that never call the model: happy path, missing file, `..\\..\\Windows`, an absolute path, a non-numeric `calculate` string, a too-long `word_count`.
+- Log the resolved path in the test failure message so a broken check is obvious.
+- Add the timeout wrapper from the stretch on a sleeping fake tool and assert the loop records timeout rather than hanging.
+
+**Practice questions**
+
+1. The model asks `read_note` for `notes/../../secret.txt`. What does your function return, and what does the model never receive?
+2. Why is `eval(expr)` wrong even if you "only expect arithmetic"?
+3. `calculate("(2+3)*4")` should return what, and which character class must the parser reject?
+4. A tool description says "reads any file the user names." The code limits the directory. Which one is the security boundary, and why must the description still not promise the wider power?
+5. The tool raises `FileNotFoundError` and you do not catch it. What does the user see, and what should they see instead?
+6. Why does each new tool need a test that does not involve the model?
+
 ## You are done when
 
 Adding a fifth tool means one registry entry, one paragraph in the prompt, and one test, with no change to the loop's control flow.

@@ -37,6 +37,37 @@ Task 1's citation is real. Task 2 does not invent a birthday from outside the no
 
 Deliberately return a wrong passage as the tool result (a test double) and see whether the answer follows the tool or the model's prior belief. This is the same trust question as the buggy `add` tool, now with text.
 
+## Study this step
+
+**Concepts to master**
+
+- Retrieval augments the prompt with passages. It does not by itself make the answer true. The generator can ignore the passages.
+- The unit of retrieval is a passage with a source, not a whole file and not a vague "context."
+- Keyword overlap is a baseline retriever. It fails on synonyms and wins on exact terms, which makes errors easy to see. An embedding retriever is a second system you adopt only after the baseline has a score.
+- Citation is a checkable claim: the filename contains the supporting sentence. A citation the file does not support is a failure even if the prose sounds right.
+- Abstention when nothing relevant was retrieved is a correct answer. Answering from parametric memory is a different system, and you are not building that one here.
+
+**Study**
+
+- The original RAG paper, abstract and Figure 1 only (Lewis et al.): https://arxiv.org/abs/2005.11401 — identify the retriever and the generator in their diagram and in your tool.
+- Eugene Yan, "Patterns for Building LLM-based Systems & Products", the retrieval and grounding patterns: https://eugeneyan.com/writing/llm-patterns/ — pick the two patterns that match this lab and ignore the rest until path 07.
+- Your own notes-QA lab write-up in path 04. If that score does not exist yet, the keyword baseline section of that lab is the reading, and this lab waits.
+
+**Practice**
+
+- For three questions, print the top 3 passages before generation. Mark whether the answer sentence is actually in one of them.
+- Insert a note that says the validation split is "the data you train on" and ask what the validation split is for. Record whether the model repeats the lie.
+- Ask something absent from the notes and check that the answer refuses rather than inventing a page number.
+
+**Practice questions**
+
+1. The right paragraph is ranked 4th and you only return 3 passages. Where did the failure happen, retrieval or generation?
+2. The right paragraph is in the prompt and the answer contradicts it. Where did the failure happen?
+3. Why is pasting the entire course into the prompt a worse plan than retrieval, besides cost?
+4. A citation names `01-fit-a-line/README.md` and the sentence is not in that file. Is the task a pass?
+5. Why must the transcript store the retrieved text separately from the final answer?
+6. You fine-tune the generator in the same week you change the retriever and the score rises. What do you know about the cause?
+
 ## You are done when
 
 A question about this course can be answered with a filename you can open and check.

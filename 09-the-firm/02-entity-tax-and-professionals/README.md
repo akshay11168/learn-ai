@@ -48,6 +48,35 @@ Write `brief.md` with your facts filled in, and leave the recommendation blank f
 
 Complete `brief.md` with your facts and the question list. Add the names of two accountants and two lawyers you could actually email, with why you picked them (a referral, a relevant practice, a city). Sending the email can wait until a trigger in lab 01 is close. The brief should be ready before that week.
 
+## Study this step
+
+**Concepts to master**
+
+- The accountant owns the questions of entity choice, tax registration, invoicing, and what may run through the business account. The lawyer owns liability, contract form, and ongoing legal duties. You own the facts.
+- A blank recommendation line is correct. A filled-in guess from a blog is how you waste the meeting.
+- Revenue figures you bring are guesses and must be labeled as guesses.
+- Thresholds and form names change. You ask them to check the current rule. You do not memorize a number from this course.
+
+**Study**
+
+- The official tax authority page in your country that explains who must register, read only to learn the vocabulary. In India, the GST portal's "who should register" page is the vocabulary source. Do not decide from it alone.
+- A bar association or chartered-accountant institute directory, enough to see how professionals are listed. Pick names from referrals first.
+- This lab's question lists. Bring `brief.md` printed.
+
+**Practice**
+
+- Fill every fact. Leave every recommendation blank.
+- Write two names for each profession and how you found them.
+- Prepare a one-sentence description of the pilot that does not use the word "AI" until the second clause.
+
+**Practice questions**
+
+1. Why is "private limited versus sole prop" a question for the meeting rather than a decision you finish tonight?
+2. Which three facts must the accountant have before they can answer?
+3. Why do you label the revenue range as a guess?
+4. What goes wrong if business and household expenses share an account for a year?
+5. Which question on your list is for the lawyer and not the accountant?
+
 ## You are done when
 
 The brief contains your facts, separates the two professionals, and leaves their recommendation blank rather than filled with a guess from the internet.

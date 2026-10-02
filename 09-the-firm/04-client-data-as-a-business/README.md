@@ -27,6 +27,36 @@ Write `data-policy.md` in rules you can follow on this PC.
 
 Practice the mechanics once with a fake client folder and a dummy file: create it, inventory it, run a pretend job, delete it, and note the deletion. Use no real person's data.
 
+## Study this step
+
+**Concepts to master**
+
+- One folder per client, inventoried on arrival, deleted or returned on a dated step.
+- Default is no client text on a hosted model API. An exception names the provider in the SOW and records the day you read the terms.
+- Training mixes are not a junk drawer. One client's rows do not enter another client's adapter or a shared base you market as yours.
+- Logs follow the path 07 rule. Personal data does not sit in them.
+- A breach template written in advance is a calmer, truer message than one written in a panic. It does not replace a lawyer's notice requirements.
+
+**Study**
+
+- Your path 07 `privacy.md`. This policy is that note, made operational for more than one client.
+- OWASP sensitive-information-disclosure item, again, now applied to folders and chat tools: https://owasp.org/www-project-top-10-for-large-language-model-applications/
+- The official definition of personal data you already opened in path 07 lab 02. Reread the examples.
+
+**Practice**
+
+- Rehearse create, inventory, pretend job, delete, with a dummy file. Time the deletion step.
+- Grep a fake project tree for the dummy secret after deletion.
+- Write the breach template in five lines: what happened, what was included, what you did, how to reach you.
+
+**Practice questions**
+
+1. Why is a copy in Downloads plus a copy in a chat window already two policy failures?
+2. You fine-tune one adapter on two clients "because the tasks are similar." What must the contracts have said, and what is the default if they said nothing?
+3. Why does "we use AI" in a proposal fail to disclose a hosted API?
+4. A subcontractor needs one file. What do they not get?
+5. The SOW ended and the folder is still on disk three months later. Which checklist item failed?
+
 ## You are done when
 
 The policy fits on two pages, you have rehearsed the folder lifecycle with dummy data, and the SOW assumptions point at "client data stays in the project folder and is not sent to a hosted model unless the SOW names one."

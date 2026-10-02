@@ -33,6 +33,35 @@ Decide which part of the pilot you should eventually stop doing yourself, and wh
 
 When the signal is no longer early, turn the task list into a one-page brief for the lawyer to wrap in the right contract. You still do not copy an employment agreement from the internet.
 
+## Study this step
+
+**Concepts to master**
+
+- You keep discovery, the method decision, the release gate, and the client readout. That judgment is the practice.
+- The first paid help is a bounded contractor (labeling, a thin UI, bookkeeping), under a contract and a confidentiality duty your lawyer provides, with the smallest data access that works.
+- An employee is a later legal object. Do not copy an employment agreement from the internet.
+- The signal you are early is fewer than two delivered pilots. Bookkeeping help can still be appropriate if the accountant says so. A "founding engineer" is not.
+
+**Study**
+
+- Your pricing table, with the hours marked keep or delegate.
+- The data policy in lab 04. A helper is a new copy of client data unless you design otherwise.
+- Your country's official page on contractor versus employee, read only to learn that the distinction exists and has tests. The lawyer applies the tests. In India, ask the lawyer in those words rather than relying on a glossary.
+
+**Practice**
+
+- Mark every row of the hour table keep or delegate.
+- Write the acceptance check for one delegated task (the golden-set command must pass, or the books must reconcile to the bank).
+- End the document with "do not hire" if you have not delivered two pilots. That sentence is a successful completion of the lab.
+
+**Practice questions**
+
+1. Why is hiring a second consultant before the offer has been delivered twice backwards?
+2. What must you still personally check so the firm's name is not delegated?
+3. A contractor asks for the whole client tree "to see the context." What do they get instead?
+4. Why is a job post a later artifact than a task list and a lawyer's contract?
+5. What condition, written in your notes, means you will not hire this year?
+
 ## You are done when
 
 You can name the work you keep, the work you would pay for, and the condition under which you will not hire yet. If that condition is "I have not delivered two pilots," the firm path is complete and the next step is the commercial action you dated in lab 01.

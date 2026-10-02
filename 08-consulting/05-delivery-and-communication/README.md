@@ -31,6 +31,36 @@ Practice the writing that makes a technical project feel reliable to someone who
 
 Read the bad-news note aloud. If you wince and soften the number, put the number back. Then check that every metric in the readout appears in the experiment log or the golden-set output.
 
+## Study this step
+
+**Concepts to master**
+
+- A status update has artifacts, a metric if you measured one, a decision needed, a risk, and next week's work. "Going well" is not a status.
+- Bad news is the number, the consequence for the SOW, and the options. A larger model is not an option you offer to hide the number.
+- The readout ends in a decision: use it on one queue, collect more labels, or stop.
+- Show a failure on purpose. Credibility comes from the miss you explain.
+- Loss curves are for your log. The buyer sees the baseline and the business metric.
+
+**Study**
+
+- Hamming, "You and Your Research", only as a standard for plain speaking about what is actually true: https://www.cs.virginia.edu/~robins/YouAndYourResearch.html — the transferable piece is refusing to hide the result. Do not cosplay a physicist.
+- Your golden-set output and your error tags. The bad-news note must use those, not a fictional disappointment.
+- The SOW metric. The readout uses the same words.
+
+**Practice**
+
+- Write week-1 and week-2 updates from real lab events.
+- Draft the bad-news note, delete the apologetic throat-clearing, and put the number in the first three lines.
+- Outline the readout in six headings or fewer. Practice saying it in ten minutes.
+
+**Practice questions**
+
+1. What three facts belong in a weekly update, and which popular sentence belongs in none of them?
+2. Validation is below the gate. What do you tell the client the day you learn it?
+3. Why is a falling training loss a bad slide?
+4. The readout has no failure example. What will a serious buyer assume?
+5. Name the decision you will ask them to make, in one sentence.
+
 ## You are done when
 
 You have a filled weekly update, a bad-news note with a real limitation from your project, and a readout outline that ends in a decision.

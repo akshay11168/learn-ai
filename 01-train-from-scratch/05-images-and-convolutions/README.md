@@ -42,6 +42,38 @@ The convnet beats the linear baseline on validation. You can compute the paramet
 
 Replace the convnet with the same depth of linear layers on flattened pixels, similar parameter count, and compare validation accuracy. The convnet should win because of weight sharing and locality. Write that sentence only after you see the numbers.
 
+## Study this step
+
+**Concepts to master**
+
+- An image batch is `(N, C, H, W)`. A 3×3 convolution with `C_in` input channels and `C_out` filters has `C_out * C_in * 3 * 3` weights, plus `C_out` biases if bias is on. Those weights are reused at every spatial position.
+- Padding, stride, and kernel size determine the output map size. For stride 1 and kernel 3, padding 1 keeps height and width.
+- Max-pooling keeps the strongest activation in a window and downsamples. It does not add parameters.
+- Stacking conv + ReLU + pool builds a hierarchy: local contrast, then patterns of those, then a linear head that sees a small grid.
+- Translation equivariance is the inductive bias you are buying. A fully connected layer on pixels does not have it, which is why the parameter count explodes and the sample efficiency drops.
+- Data augmentation invents inputs you claim are the same class. The claim is false for some labels (flipping a digit 6, flipping text).
+
+**Study**
+
+- CS231n convolutional notes, through "Pooling": https://cs231n.github.io/convolutional-networks/ — compute their parameter-count examples by hand before reading the answers.
+- Chris Olah, "Conv Nets: A Modular Perspective": https://colah.github.io/posts/2014-07-Conv-Nets-Modular/ — the picture of a conv layer as a bank of dot products.
+- *Dive into Deep Learning*, chapter on convolutional neural networks, the sections "Convolutions for Images" and "Padding and Stride": https://d2l.ai/chapter_convolutional-neural-networks/conv-layer.html and https://d2l.ai/chapter_convolutional-neural-networks/padding-and-strides.html — run their shape calculations on your layer.
+
+**Practice**
+
+- For your exact architecture, compute each layer's output shape on a 32×32 input and the parameter count. Then print `p.numel()` and reconcile.
+- Train the linear baseline and the convnet for the same wall-clock budget, not the same epoch count, if one step is much heavier. Say which comparison you used.
+- Visualize one first-layer filter as a 3×3×3 tensor rescaled to an image. It will not look like a zebra. It should have some spatial structure. If it is noise, training did not move that layer.
+
+**Practice questions**
+
+1. Input `(8, 3, 32, 32)`, conv `kernel_size=3`, `padding=1`, `stride=1`, 16 filters. Output shape, and number of weights excluding bias?
+2. Same layer with `stride=2` and `padding=1`. What happens to height? Use the formula `floor((H + 2p - k) / s) + 1`.
+3. Why does tying the same 3×3 filter across the image use less data than a separate detector for each pixel?
+4. You flip every CIFAR image left-right, including the validation set, as augmentation applied after the split, using a random flip at eval time too. What did you make incomparable?
+5. The confusion matrix shows cats predicted as dogs more than any other pair. Name two data-side reasons and one model-side reason. Which would you test first?
+6. A convnet and an MLP have the same parameter count. The convnet wins on CIFAR. What assumption did the convnet bake in that the MLP has to learn from pixels?
+
 ## You are done when
 
 You can explain a convolution as a shared dot product on patches, and you can show one class pair your model still mixes up.

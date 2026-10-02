@@ -34,6 +34,36 @@ Avoid adjectives that mean a score you do not have: accurate, intelligent, human
 
 Read the SOW as the client. Underline every sentence that could be heard as a guarantee. Rewrite those sentences until a skeptical reader can see the limit. Then read it as yourself six weeks later: could you tell whether you had finished?
 
+## Study this step
+
+**Concepts to master**
+
+- Scope is a list of artifacts and activities. "Improve the process with AI" is not scope.
+- The metric names the set, the baseline, and the fact that it is not a warranty.
+- Exclusions are where fixed-price work survives. Anything omitted will be assumed included.
+- Assumptions are the conditions that pause the project: access, labels, a named reviewer, data permission.
+- Change control means a new workflow is a new estimate, written down before you build it.
+
+**Study**
+
+- A university procurement office's public "how to write a statement of work" guide. Search for "statement of work" on a .edu site and read one short guide end to end, for the shape only: objectives, deliverables, timeline, assumptions, and what is outside the work. It will be written for buyers. Read it as the document your client wishes you had given them. Your lawyer's template overrides it when you take a real client.
+- Your path 07 decision record. The SOW's method must match the rung you can defend.
+- McKenzie on writing concrete proposals, in "Don't Call Yourself A Programmer", the bits about promises you can keep.
+
+**Practice**
+
+- Underline every adjective in the draft and replace it with a noun or a number, or delete it.
+- Circle one capability you have (a chatbot, a second department, hosting) and put it in exclusions on purpose.
+- Read the SOW as the client and list every sentence that sounds like guaranteed savings. Rewrite them.
+
+**Practice questions**
+
+1. Why does a fixed price without exclusions transfer unbounded work to you?
+2. "The system will be accurate" belongs in which section, if any, and what replaces it?
+3. The client adds a second document type in week two. What does the change rule require you to do before you touch it?
+4. Their duty is "support as needed." Why is that not a duty, and what do you write instead?
+5. Which artifact from path 07 must the SOW promise, and which number must it refuse to invent?
+
 ## You are done when
 
 The scope lists artifacts, the metric names a baseline, and the exclusions include at least one thing you are technically able to do and still refuse to hide inside this pilot.

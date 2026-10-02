@@ -44,6 +44,37 @@ The sane run beats the untouched model on validation. The too-high learning rate
 
 Fine-tune twice, once with answer-only loss and once with loss on the full sequence. Compare validation scores and a sample. This is a small empirical paper. Write it as five sentences in `notes.md`.
 
+## Study this step
+
+**Concepts to master**
+
+- Full fine-tuning continues gradient descent from a pretrained point. The learning rate must be small because the weights are already useful. A rate that was fine for random initialization can erase them.
+- Causal language-model loss on a prompt plus an answer trains the model to reproduce both. Masking the prompt (labels set to `-100`) trains it to produce the answer given the prompt.
+- Catastrophic forgetting, in practice: after a narrow update, performance on the new validation set rises and performance on the old prompts falls. You detect it by rerunning a frozen set of prompts, not by guessing.
+- Overfitting a dozen examples until the model echoes them proves the optimizer is wired to the right tensors. It is a debugging trick, not a result.
+- A classifier head on a frozen or lightly tuned encoder is a different objective from next-token loss. Do not mix their metrics in one table without labeling the objective.
+
+**Study**
+
+- Hugging Face NLP course, chapter on fine-tuning a pretrained model: https://huggingface.co/learn/nlp-course/chapter3/1 — do their sequence-classification fine-tune if your task is a classifier. Read the data-collator section even if you write your own loop.
+- Karpathy's recipe, section "overfit a single batch" and the learning-rate advice: https://karpathy.github.io/2019/04/25/recipe/
+- Sebastian Ruder, "NLP's ImageNet moment has arrived", the fine-tuning discussion: https://www.ruder.io/nlp-imagenet/ — read it as history and as the reason a pretrained encoder beats training from scratch on a small labeled set. Check that claim on your own split.
+
+**Practice**
+
+- Print one batch of `input_ids` and `labels` side by side. Circle the positions where labels are `-100`. If none are, you are training on the prompt.
+- Run 200 steps at `5e-5` and 200 steps at `1e-3` from the same checkpoint. Save both samples of the three lab-01 prompts.
+- Overfit 8 training pairs until exact echo, then stop. Write "debug only" on that checkpoint's filename so you do not report it.
+
+**Practice questions**
+
+1. A prompt is 80 tokens and the answer is 20. If loss is averaged over all positions, what fraction of the gradient is about copying the question?
+2. Why is `1e-3` a reasonable rate for the XOR net and a dangerous rate here? Answer in terms of where the weights started.
+3. Labels contain `-100`. What does `CrossEntropyLoss` do with those positions by default?
+4. Validation loss on the new task improved, and the general prompt from lab 01 now answers in the format of your training answers, ignoring the question. What happened, and which control do you tighten first?
+5. You select the checkpoint with the best test score after trying four learning rates. What split did you misuse?
+6. DistilBERT produces a vector for the `[CLS]` token and a linear layer maps it to 3 classes. What is the loss, and what is the baseline you must beat?
+
 ## You are done when
 
 You can justify the learning rate from the failed run, and you can say which tokens received loss.

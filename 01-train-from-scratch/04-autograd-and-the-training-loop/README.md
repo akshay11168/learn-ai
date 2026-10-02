@@ -60,6 +60,38 @@ XOR is solved on the GPU. `predict.py` works in a fresh process. The numerical c
 
 Read a batch from a `TensorDataset` and `DataLoader` with `shuffle=True`. Turn shuffle off and describe one way the gradient becomes a worse estimate (the same order every epoch, and if the data is sorted by class, long stretches of one class).
 
+## Study this step
+
+**Concepts to master**
+
+- Autograd records operations on tensors that require gradients and, on `backward()`, fills `.grad` with the same quantities you computed in NumPy.
+- `.grad` accumulates. `zero_grad()` clears it. Forgetting the clear mixes two batches' gradients.
+- `no_grad()` and `eval()` are different. One stops graph building. The other switches dropout and batch-norm behavior.
+- An epoch is a full pass over the training data. A step is one optimizer update. Batch size is how many rows contribute to that update.
+- `nn.Linear` stores weight `(out, in)` and computes `x @ W.T + b`. BCE-with-logits takes raw scores, not probabilities.
+- A checkpoint is a state dict loaded into an identical module. Saving the whole Python object is fragile. Saving the tensors is the contract.
+
+**Study**
+
+- PyTorch "Autograd mechanics": https://pytorch.org/docs/stable/notes/autograd.html — read "Excluding subgraphs" and the accumulation note. Then the official 60-minute blitz, the autograd and neural-network sections: https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html
+- PyTorch "What is a state_dict?": https://pytorch.org/tutorials/beginner/saving_loading_models.html — implement save and load in two processes.
+- Karpathy, "A Recipe for Training Neural Networks": https://karpathy.github.io/2019/04/25/recipe/ — read sections 1–3 now (become one with the data, neural net first, overfit a single batch). The rest of the recipe is for path 06.
+
+**Practice**
+
+- Overfit a single batch of XOR until loss is about zero, before you train on the full set. If one batch will not overfit, the bug is in the code, not the learning rate schedule.
+- Print `layer.weight.shape` and `layer.weight.grad.shape` after one backward. They match.
+- Train on CPU and CUDA with the same seed. Compare validation accuracy, not exact loss bits.
+
+**Practice questions**
+
+1. You call `backward()` twice without `zero_grad()`. How does the second `.grad` relate to the two batches?
+2. Validation loss is computed without `no_grad()`, and then you train another epoch. What extra work happened, and what bug appears if you also called `backward()` on the validation loss by mistake?
+3. `nn.Linear(2, 8)` has a weight of which shape? Write the forward expression in the row-vector convention you used in NumPy.
+4. Why does `BCEWithLogitsLoss` exist instead of sigmoid followed by `BCELoss`?
+5. You load a state dict and the first prediction differs from the process that saved it. List three concrete mismatches (architecture, preprocessing, eval versus train mode).
+6. Define epoch, step, and batch size for a training set of 1000 rows and a batch size of 32. How many steps are in one epoch, and what happens to the last incomplete batch in the default loader?
+
 ## You are done when
 
 A new dataset of the same kind can be trained by editing the data loader and the input size, without editing the meaning of the loop.

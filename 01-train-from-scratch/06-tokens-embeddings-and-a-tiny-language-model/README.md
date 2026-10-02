@@ -42,6 +42,38 @@ Validation loss beats the bigram baseline. Samples at low temperature look local
 
 Plot a few embedding rows' pairwise dot products for vowels versus consonants. On a small file the pattern may be faint. Report what you actually see.
 
+## Study this step
+
+**Concepts to master**
+
+- A tokenizer is a function from text to integer ids and back. Character-level ids are a vocabulary you can print. Subword ids are a learned vocabulary you must inspect with `convert_ids_to_tokens`.
+- An embedding is a matrix of shape `(vocab, n_embed)`. Looking up id `i` is selecting row `i`. Those rows are trained by gradient descent like any other weight.
+- Next-token prediction is multi-class classification at every position. The target at position `t` is the id at position `t+1`. The loss is cross-entropy, averaged over positions you choose to score.
+- A fixed window flattened into a linear layer can use order. A mean of the embeddings cannot, because means are commutative.
+- Temperature divides logits before softmax. Below 1 sharpens. Above 1 flattens. Greedy decoding is the limit of temperature going to 0, implemented as `argmax`, not as a tiny temperature that can still tie.
+- Perplexity `exp(mean loss)` is an effective branching factor. It is comparable only between models with the same tokenizer and the same validation text.
+
+**Study**
+
+- Jay Alammar, "The Illustrated Word2vec": https://jalammar.github.io/illustrated-word2vec/ — read part 1, the embedding lookup and the prediction task. You are doing the character version of that picture.
+- Karpathy, "Let's build GPT", the bigram and loss sections only, before attention: https://www.youtube.com/watch?v=kCc8FmEb1nY — code a bigram count model while you watch that segment. Stop the video when he starts the self-attention block. That block is the next lab.
+- *Speech and Language Processing* (Jurafsky and Martin), the chapter on n-gram language models, sections on the chain rule and perplexity: https://web.stanford.edu/~jurafsky/slp3/ — read the n-gram chapter's opening. A neural window model is a smoothed, learned n-gram.
+
+**Practice**
+
+- Print every character id in one sentence you know by heart, then decode it back. A mismatch means your `stoi`/`itos` are not inverses.
+- Train the bigram counts and the neural window model on the same split. Put both validation losses in one table.
+- Sample the same prompt at temperatures 0.2, 1, and 2. Mark repeated phrases that appear verbatim in the training file.
+
+**Practice questions**
+
+1. Vocabulary size 40, embedding size 16, window 32, linear head from the flattened window to 40 logits. How many parameters are in the embedding, and how many are in that linear layer, ignoring bias?
+2. The target for the window ending at index `i` is which id, and what do you do at the last character of the file?
+3. Why does shuffling individual windows across the whole book leak the validation text?
+4. Two models both have validation loss `2.3`, one character-level and one subword. Can you say they are equally good? What else must match?
+5. Temperature 0.3 produced a loop of the same five words. What is the model doing, and which control do you change first, temperature or the data?
+6. A one-hot vector of length `V` dotted with a matrix `(V, d)` equals one row of that matrix. How is `nn.Embedding` the same operation with less arithmetic?
+
 ## You are done when
 
 You can describe training as "classify the next token," and you can change temperature and predict how the sample will change.

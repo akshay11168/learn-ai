@@ -35,6 +35,35 @@ Using the logistic regression from path 01, or the text classifier:
 3. Print a confusion matrix.
 4. Tag 20 errors. Summarize in five lines: the main failure, whether more data of a certain kind would address it, and whether the label guide is ambiguous.
 
+## Study this step
+
+**Concepts to master**
+
+- Accuracy, precision, recall, and F1, and when each one hides a class.
+- A confusion matrix is the count of true-versus-predicted pairs. The worst off-diagonal cell is where you start reading examples.
+- The baseline is part of the result. A number without it is unfinished.
+- The test set is not for choosing thresholds, features, or checkpoints.
+
+**Study**
+
+- Scikit-learn, "Precision, recall, and F-measures": https://scikit-learn.org/stable/modules/model_evaluation.html — implement the formulas for one binary example before you call `classification_report`.
+- Google's Machine Learning Crash Course, "Classification" threshold and ROC/precision-recall introduction: https://developers.google.com/machine-learning/crash-course/classification — do the threshold exercise in your head on a class imbalance of 95%.
+- Chris Olah's visual style is optional here. The crash course and sklearn are the texts.
+
+**Practice**
+
+- By hand, 10 binary predictions: compute accuracy, precision, and recall. Then confirm with code.
+- Build a confusion matrix for 3 classes with made-up counts and name the worst cell.
+- Write a five-line error analysis from 20 real mistakes once the lab's model exists.
+
+**Practice questions**
+
+1. 100 patients, 5 have the condition. The model predicts nobody has it. Accuracy, precision, recall?
+2. You care about missing a positive more than a false alarm. Which of precision and recall do you watch first, and what threshold move increases recall?
+3. Two models have accuracy 0.80. One never predicts class B. Why can they be different products?
+4. Why tag individual errors after seeing the matrix, instead of stopping at the matrix?
+5. Define the majority-class baseline for a set with counts `{0: 70, 1: 20, 2: 10}`.
+
 ## You are done when
 
 You can look at a new project's headline accuracy and ask for the baseline, the class balance, and the worst confusion, without being told to.

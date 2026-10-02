@@ -44,6 +44,39 @@ The hand-written LoRA shows a frozen `W`. The PEFT run reports trainable paramet
 
 Train rank 4 and rank 32 for the same number of steps. Compare validation score and adapter file size. Write what extra rank bought you on this particular dataset.
 
+## Study this step
+
+**Concepts to master**
+
+- LoRA replaces a full update `ΔW` with a low-rank product `BA`, rank `r`. For a square matrix of width `d`, full fine-tuning trains `d²` numbers and LoRA trains `2dr` per adapted matrix, times the modules you target.
+- Only `A` and `B` receive optimizer state. `W` is frozen. If `W` has a gradient, it is not LoRA.
+- Alpha scales the update, commonly `alpha / r`. Doubling rank without thinking about alpha changes the step size.
+- QLoRA quantizes the frozen base, usually to 4-bit NF4, and dequantizes for the matmul. The adapter stays in higher precision. Quantization error is the price of the memory cut.
+- Merging adds `BA` into `W` for deployment. Keeping the adapter separate lets you swap tasks without copying the base.
+- Target-module choice is part of the method. Query and value projections are the usual default, not a law of nature. Your write-up names the modules.
+
+**Study**
+
+- LoRA paper, abstract, Figure 1, and Section 4 (the low-rank hypothesis discussion): https://arxiv.org/abs/2106.09685 — recompute their parameter-reduction example with `d = 1024`, `r = 8`.
+- QLoRA paper, abstract and the memory Figure: https://arxiv.org/abs/2305.14314 — extract what is quantized and what is not.
+- Hugging Face PEFT docs, the LoRA conceptual guide and the configuration fields: https://huggingface.co/docs/peft/main/en/conceptual_guides/lora — then print `get_nb_trainable_parameters()` and match it to your hand count.
+- bitsandbytes 4-bit integration notes in the Transformers quantization guide: https://huggingface.co/docs/transformers/main/en/quantization/bitsandbytes — read the "we do not quantize the adapters" implication. If the library errors on your GPU, the driver note in your lab log is the study artifact.
+
+**Practice**
+
+- Hand-count trainable parameters for rank 8 on `q_proj` and `v_proj` only, given the hidden size from `model.config`. Compare to PEFT's number.
+- Watch `nvidia-smi` during a 4-bit step and a float16 LoRA step on the small model. Write both peaks.
+- Save the adapter, restart Python, load base plus adapter, and check one prompt against the session that trained it.
+
+**Practice questions**
+
+1. `d = 2048`, `r = 16`, one matrix. How many LoRA parameters, and what fraction is that of `d²`?
+2. You double `r` and leave `alpha` fixed, with scale `alpha / r`. What happens to the initial magnitude of `ΔW` if `A` and `B` start small?
+3. Why does QLoRA not cut the activation memory by 4× when the sequence gets long?
+4. Adam state is about 8 extra bytes per trainable parameter in a common mixed-precision setup, on top of the trainable weights. For `1e6` trainable adapter parameters, how much optimizer memory is that, and why is the 1.5B base still the thing that had to be quantized?
+5. A merged checkpoint and an adapter-plus-base pair should produce the same greedy tokens on a fixed prompt. What bug does a mismatch reveal?
+6. Rank 32 beat rank 4 on training loss and tied on validation. What do you ship, and why?
+
 ## You are done when
 
 You can explain, with a parameter count and a VRAM reading from your own machine, why the capstone is QLoRA.

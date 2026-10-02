@@ -40,6 +40,38 @@ You can state which experiment won on validation and whether the pretrained body
 
 Train with the backbone frozen for a few epochs, then unfreeze. Compare to unfreezing immediately. Write what the head is learning while the body is still fixed.
 
+## Study this step
+
+**Concepts to master**
+
+- Early conv layers detect generic structure (edges, color, texture). Later layers become specific to the classes they were trained on. Transfer learning keeps the generic part and replaces the specific head.
+- Freezing means `requires_grad=False` and not passing those parameters to the optimizer. Forgetting either one wastes memory or silently trains the backbone.
+- Pretrained weights assume a preprocessing contract: resize, crop, and the channel mean and std used in the original training. Breaking the contract throws away the transfer.
+- A random backbone with the same architecture is the control that tells you the data helped, rather than the architecture alone.
+- Batch-norm layers contain running statistics. A frozen backbone should stay in `eval()` so those statistics are not recomputed on your tiny batches.
+- Near-duplicate photos across the split inflate accuracy. The split unit is the capture session, not the file.
+
+**Study**
+
+- CS231n transfer-learning notes: https://cs231n.github.io/transfer-learning/ — their three regimes (tiny, medium, and large target data) map directly onto how much you unfreeze. Write which regime your photo set is.
+- Sebastian Ruder, "Transfer Learning - Machine Learning's Next Frontier": https://www.ruder.io/transfer-learning/ — read the taxonomy section. Place this lab under inductive transfer from a supervised image net.
+- torchvision ResNet18 weights documentation, including the preprocessing transforms in the weights enum: https://pytorch.org/vision/stable/models/generated/torchvision.models.resnet18.html — copy the mean and std from the page into your code and cite the page in `notes.md`.
+
+**Practice**
+
+- Print how many parameters require grad in experiments A, B, and C. The frozen run should show only the new head.
+- Deliberately use mean `0` and std `1` instead of the official normalization for one epoch. Compare validation accuracy to the correct preprocessing. That gap is the contract.
+- Find two photos that are almost the same frame. Force one into train and one into validation in a throwaway split, score it, and then restore the honest split. Write how much the score moved.
+
+**Practice questions**
+
+1. You replace the final layer of ResNet-18. The old layer mapped 512 features to 1000 classes. Your new layer maps which size to how many classes?
+2. The backbone is frozen but the loss still takes a long time and the GPU memory looks like full training. What did you forget?
+3. Why can unfreezing all layers with learning rate `1e-3` destroy features the pretraining spent a large compute budget to learn?
+4. Experiment B (random init) beats experiment A (pretrained) on your set. Give two data-side explanations you would check before you conclude pretraining does not work.
+5. `model.train()` on a frozen batch-norm network changes which numbers? Why is that harmful on a batch of 4?
+6. A test photo of a plant on a desk is classified as "book" with probability 0.51. What does the lab's later threshold idea need to do with this output, and why is 0.51 not "a book"?
+
 ## You are done when
 
 A new photo, taken after the split, can be classified by a script that loads your checkpoint, and you know which experiment that checkpoint came from.

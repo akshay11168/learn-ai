@@ -53,6 +53,37 @@ Your paper calculation of the first update (`w` from 1 to 1.16, slope -16) match
 
 Two weights: `y_hat = w1 * x1 + w2 * x2`, one data point `x = [1, 1]`, `y = 4`, start at zeros, learning rate 0.1, five steps on paper and in code. Both weights should move equally. Write the two partial derivatives.
 
+## Study this step
+
+**Concepts to master**
+
+- A derivative is a local slope. The gradient is the list of partial slopes, one per weight.
+- Gradient descent steps against the slope: `w := w - lr * dL/dw`. The minus sign is the whole algorithm.
+- The chain rule multiplies local slopes. Backprop is that multiplication along a computation graph, from the loss back to each weight.
+- The sigmoid squashes a score into (0, 1). Softmax turns a vector of scores into a distribution. Subtracting the max before `exp` does not change the result and prevents overflow.
+- Cross-entropy `-log(p_true)` is small when the true class is probable and large when it is not. It is the loss you will actually train classifiers and language models with.
+
+**Study**
+
+- 3Blue1Brown, "Essence of calculus", chapter 2 (the derivative as a slope) and chapter 3 (the chain rule), then "Neural networks", chapters 1 through 4: https://www.3blue1brown.com/topics/neural-networks — after each chapter, write one numeric example the video did not use.
+- Michael Nielsen, *Neural Networks and Deep Learning*, chapter 1, through the section on gradient descent: http://neuralnetworksanddeeplearning.com/chap1.html — read it slowly. This is the book to return to in path 01.
+- Mathematics for Machine Learning, chapter 2, sections on the dot product and matrix multiplication only: https://mml-book.github.io/book/mml-book.pdf — do the small numeric exercises, skip the proofs.
+
+**Practice**
+
+- By hand, five steps of `w := w - 0.1 * 2 * (w - 3)` starting at `w = 0`. This is descent on `(w - 3)^2`.
+- Compute softmax of `[1, 1, 1]` and of `[10, 0, 0]` with the max subtracted. Confirm the rows sum to 1.
+- Compute `-log(p)` at `p = 0.99, 0.5, 0.01` using a calculator. Rank them.
+
+**Practice questions**
+
+1. `L = (2w - 6)^2` at `w = 1`. What is `dL/dw`, and what is `w` after one step with learning rate `0.01`?
+2. The slope `dL/dw` is positive. Which way do you move `w`, and why?
+3. Learning rate `100` on `(w - 3)^2` starting at `w = 0`. Does the next `w` land nearer to 3 or farther? Compute it.
+4. Softmax of `[2, 2, 2]` equals softmax of `[0, 0, 0]`. Show why, using the "subtract the max" form.
+5. A model assigns probability `0.2` to the true next character. Another assigns `0.8`. Which has the larger cross-entropy, and by roughly how much? Use `-log(0.2) ≈ 1.61` and `-log(0.8) ≈ 0.22`.
+6. In one sentence, where does the chain rule sit between "the loss depends on the prediction" and "the prediction depends on the weight"?
+
 ## You are done when
 
 You can teach the one-weight update to someone else from a blank page, including the moment you subtract `learning_rate * gradient`.

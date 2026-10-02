@@ -39,6 +39,37 @@ You can point at a transcript and name the step where control returned from the 
 
 Insert a bug in `add` so it returns `a + b + 1`. See whether the model's final answer trusts the tool. Write down what that implies for tools that hit a database or a test runner.
 
+## Study this step
+
+**Concepts to master**
+
+- The agent is a control loop in your process. The model is one function call inside it. Authority to act sits in the branches you wrote.
+- State is the message list. If a fact is not in that list or in a tool result you append, the model cannot use it on the next turn except by guessing.
+- Termination conditions are part of the design: final answer, step limit, and later parse failure. A loop without a limit is not an agent. It is a hang.
+- A tool result is data, including error strings. The model does not get a hidden exception. It gets text you chose to show it.
+- Transcripts are the debugging trace. A summary of "it worked" deletes the only evidence.
+
+**Study**
+
+- Lilian Weng, "LLM Powered Autonomous Agents", the section that defines the loop (planning, memory, tools), the opening only: https://lilianweng.github.io/posts/2023-06-23-agent/ — redraw her diagram as the six-line loop in this path's README. Note what you are not building yet.
+- Anthropic, "Building effective agents": https://www.anthropic.com/engineering/building-effective-agents — read the distinction between a workflow (you wrote the branches) and an agent (the model chooses the branch). Your lab is the smallest agent. Be able to say which one a given demo is.
+- Simon Willison, "Agent" is a vague word, the post where he argues for a definition: search his blog for the 2025 piece titled along the lines of "I still don't like agents" or read https://simonwillison.net/2025/May/22/tools-in-a-loop/ if that is the current canonical post. The idea to take: an agent is tools in a loop, and everything else is marketing. If the URL has moved, find it from his site search rather than a repost.
+
+**Practice**
+
+- Desk-check the loop on paper for task 1: write every message after each step before you run the model.
+- Force `max_steps = 1` and confirm the adder task stops with an explicit stop reason if the model only called the tool.
+- Change `add` to return `a + b + 1` and save the transcript where the model trusts the lie.
+
+**Practice questions**
+
+1. The model says "I called add and the result is 42" without a tool message in the transcript. Did it call the tool?
+2. Why must the tool result be appended as its own message?
+3. `max_steps` is 4 and the model emits a tool call every time. What does the user receive, and which line of code decided that?
+4. A framework hides the message list. What bug becomes harder to see?
+5. Task 2 should not call `add`. If it does, is that a loop bug or a model bug, and how do you know from the transcript?
+6. Write the loop's state in one sentence after step 0 and after a successful tool call.
+
 ## You are done when
 
 You can reimplement the loop from the pseudocode without looking at `agent.py`, and the termination condition is obvious in the code.

@@ -40,6 +40,35 @@ Also write what you will not do for free: an open-ended "quick look" at their wh
 
 You can explain the price as hours times rate, point at the contingency, and say which request would trigger the change rule instead of silent extra work.
 
+## Study this step
+
+**Concepts to master**
+
+- Price starts from hours times a rate, with a contingency, not from what you hope they will pay and not from a random "AI project" number you saw online.
+- A fixed price matches a fixed SOW. Unknown data means a cap or a paid discovery, not a handshake.
+- The messy-data column is the honest range. Quoting only the optimistic column is how pilots go sour.
+- Milestones tie payment to artifacts, not to a vague "progress."
+- A retainer is a follow-on after a pilot works. It is not the first sale.
+
+**Study**
+
+- Patrick McKenzie on consulting rates and productized services, "Rambling notes on productized consulting": search kalzumeus.com for productized consulting, and read https://www.kalzumeus.com/2012/09/17/ramps-not-product/ for the distinction between selling your hours and selling a scoped outcome. The SOW is the outcome. The hours are how you priced it.
+- Your accountant will eventually tell you how invoices and taxes work. Do not study a random tax blog as a substitute. Study your own hour table until the arithmetic is boring.
+
+**Practice**
+
+- Fill the hour table twice: calm data and messy data. Multiply by a day rate you label as a placeholder or as a researched local rate. Write which it is.
+- Add a 20% contingency and show the addition.
+- Write the three milestone payments so they sum to the fixed price.
+
+**Practice questions**
+
+1. Optimistic estimate 40 hours, messy 70, rate such that a day is 6 billable hours. How many days is the messy estimate, and why do you not quote only 40?
+2. Why does an hourly engagement with no cap frighten a first client?
+3. What request during the pilot triggers a change order instead of "I'll just add it"?
+4. Why is discounting to "get the logo" dangerous when you have no delivery muscle yet?
+5. Where does the baseline-building time sit in the table, and what happens to the price if you pretend that work is free?
+
 ## You are done when
 
 `pricing.md` has a number for your practice SOW, a messy-data range, and a sentence you could say to a client without apologizing for charging.

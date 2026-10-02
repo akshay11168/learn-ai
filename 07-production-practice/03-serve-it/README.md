@@ -36,6 +36,36 @@ Call `/health`, then `/predict`, with the example from your path 04 script. The 
 
 Add a `GET /version` that reports the git commit, the data-folder date from lab 02, and the checkpoint filename. Those three are the start of a reproducible release.
 
+## Study this step
+
+**Concepts to master**
+
+- A service is a process with a contract: request shape, response shape, version, and error body. A script is not a contract until those are stable.
+- Load the model at startup. Per-request loading hides a latency bug and a failure mode.
+- Health means the model is loaded, not merely that the port is open.
+- Preprocessing is shared code. Two copies will drift.
+- Bind to localhost until you have an explicit deployment threat model. A demo port on the LAN is an incident.
+
+**Study**
+
+- FastAPI tutorial, "First steps" and request body: https://fastapi.tiangolo.com/tutorial/first-steps/ and https://fastapi.tiangolo.com/tutorial/body/ — stop before databases.
+- HTTP status codes you will actually return: 200, 400, 422, 500. MDN's status overview: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+- Twelve-Factor, "port binding": https://12factor.net/port-binding — the idea that the service is a process you can start and hit. Ignore the rest of the site for now.
+
+**Practice**
+
+- Call the example with `Invoke-RestMethod` or `curl`. Save the response next to the CLI script's output and diff them.
+- Kill the process mid-request and see what the client observes. Write it down.
+- Return a controlled 400 for an empty input. Confirm the body has no traceback.
+
+**Practice questions**
+
+1. Why must `/health` fail if the checkpoint path is wrong, instead of returning ok and erroring on the first real user?
+2. Two preprocessing functions differ by a resize. The notebook score and the service disagree. Which one is the bug?
+3. Why is binding `0.0.0.0` a different decision from binding `127.0.0.1`?
+4. What does `model_version` need to include so two releases are distinguishable?
+5. A stack trace in the JSON body teaches the caller what about your disk layout, and why is that undesirable?
+
 ## You are done when
 
 You can restart the process and a single request still returns the same version and the same label on the example input.

@@ -25,6 +25,35 @@ Hold out entire takes for validation and test. If you record 20 separate takes, 
 5. `python predict.py clip.wav` prints the class.
 6. Record 5 new clips after training, in a different room if you can. Those are the test. The interesting failure is a class that only worked because the microphone was in the same place.
 
+## Study this step
+
+**Concepts to master**
+
+- A waveform is pressure samples at a fixed rate. A mel spectrogram is energy across frequency bands across short frames. The convnet sees a 2D tensor, not "sound" as a vague object.
+- The split unit is the take or the session. Slices of one take share room tone, microphone, and your voice that day. Random slices leak that signature.
+- Class centroids of mean spectrograms are a serious baseline. A convnet that cannot beat them has not used its capacity.
+- Domain shift is a new room or a new distance to the microphone. Report it separately from the in-room validation score.
+
+**Study**
+
+- torchaudio tutorial "Audio feature extractions" / mel spectrogram tutorial: https://pytorch.org/audio/stable/tutorials/audio_feature_extractions_tutorial.html — compute one spectrogram and match the shape to the docs.
+- *Speech and Language Processing* (Jurafsky and Martin), the short section on mel spectrograms in the speech chapter, if you want the hearing motivation: https://web.stanford.edu/~jurafsky/slp3/ — read only the spectrogram subsection.
+- Path 05 lab 03, which is the concept page for this use case. Read it before you record.
+
+**Practice**
+
+- Plot waveform and mel spectrogram of one clip of "yes" and one of background noise. Label the axes.
+- Put two slices of the same take on opposite sides of a throwaway split, train for a minute, and watch the flattering accuracy. Then throw that split away.
+- Record the five new-room clips last, after the model is frozen.
+
+**Practice questions**
+
+1. 16 kHz for 1 second is how many samples? If you feed that vector straight to a linear layer, how many input weights does the first layer have per unit?
+2. Why is a random split of one clap recorded for 10 seconds not 10 independent examples?
+3. The in-room validation score is 95% and the other-room score is 40% with five classes. What did the model likely use as a feature?
+4. Majority baseline for five balanced classes is what accuracy, and what does a 30% model mean?
+5. You normalize each spectrogram by the max of the whole dataset before splitting. Where is the leak?
+
 ## You are done when
 
 The convnet beats the centroid or majority baseline on validation, the script classifies a new file, and your notes say whether a new room hurt.

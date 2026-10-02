@@ -41,6 +41,37 @@ The three splits are disjoint. You can point at the plot and say which region is
 
 Move 20 copies of one validation point into the training set and describe, before rerunning anything, which accuracy moves and which one becomes less meaningful.
 
+## Study this step
+
+**Concepts to master**
+
+- The training loss is the quantity the optimizer reduces. Generalization is performance on rows that did not contribute to any update or to any decision you made.
+- Validation chooses your settings. Test is reported once. Using the test set to pick a setting spends it.
+- Leakage is any path by which information from the held-out rows enters training: duplicate rows, preprocessing fit on all rows, features that contain the label, or a split that puts two crops of one photo on both sides.
+- A baseline is the score of the simplest honest predictor. A model that does not beat it has not earned its complexity.
+- Overfitting is low training loss and worse held-out loss. It is a successful optimization of the wrong objective.
+
+**Study**
+
+- Google's "Rules of Machine Learning", rules 1–4 and the section on data leakage thinking: https://developers.google.com/machine-learning/guides/rules-of-ml — read them as engineering rules, not slogans. Write rule 1 in your own words.
+- Scikit-learn's user guide, "Cross-validation: evaluating estimator performance", the opening on train/test split only: https://scikit-learn.org/stable/modules/cross_validation.html — stop before the catalog of splitters. The picture of a held-out set is the point.
+- Chapter 5 of *Dive into Deep Learning*, the section on overfitting and underfitting: https://d2l.ai/chapter_multilayer-perceptrons/underfit-overfit.html — reproduce their conceptual curve as a sketch before you read their experiment.
+
+**Practice**
+
+- Make a 20-row table with one repeated row. Split randomly. Count how often the duplicate lands in both sides. That count is the leakage demo.
+- Fit the degree-7 polynomial in the lab and also a degree-1 polynomial on the same 8 points. Write which one wins on the 8 points and which one wins on the fresh 50.
+- Compute a majority-class baseline by hand on a set with 15 zeros and 5 ones.
+
+**Practice questions**
+
+1. You try five learning rates and keep the one with the best test accuracy. What have you turned the test set into, and what number can you no longer quote?
+2. You compute the mean and variance of every feature on the full dataset, then split. Name the leak.
+3. Training accuracy is 100% and validation accuracy is 55% on a balanced two-class problem. What is the baseline, and what is the model doing?
+4. Why can adding columns of random noise improve training accuracy and hurt validation accuracy?
+5. A classmate sorts the file so all similar items are adjacent, then takes the first 80% as train. What dependence did the split fail to break?
+6. Write one sentence you are willing to say about a model, and one sentence you will not say, using only a validation score.
+
 ## You are done when
 
 You can define generalization using your own plot, and you refuse to quote a test score for a decision you already used the test set to make.
